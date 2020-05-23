@@ -1,0 +1,29 @@
+import json, requests, sys
+
+#JSON data from OpenWeatherMap.org's API.
+url ='https://samples.openweathermap.org/data/2.5/forecast/hourly?q=London,us&appid=b6907d289e10d714a6e88b30761fae22'
+response = requests.get(url)
+x = response.json()
+y = x["list"]
+response.raise_for_status()
+# Load JSON data into a Python variable.
+weatherData = json.loads(response.text)
+# Print weather descriptions.
+w = weatherData['list']
+
+print("3. For all 4 days, the temp should not be less than temp_min and not more than temp_max")
+print()
+count_fail_3 = 0
+count_pass_3 = 0
+for i in range(len(w)):
+    if (w[i]['main']['temp']) >= (w[i]['main']['temp_min']) and (w[i]['main']['temp']) <= (w[i]['main']['temp_max']):
+        print('{} Pass'.format(w[0]['dt_txt']))
+        count_pass_3 += 1
+    else:
+        print('{} Fail'.format(w[i]['dt_txt']))
+        count_fail_3 += 1
+        
+print()
+print("Result:")
+print("Pass "+str(count_pass_3))
+print("Fail "+str(count_fail_3))
