@@ -17,7 +17,7 @@ count_fail_3 = 0
 count_pass_3 = 0
 for i in range(len(w)):
     if (w[i]['main']['temp']) >= (w[i]['main']['temp_min']) and (w[i]['main']['temp']) <= (w[i]['main']['temp_max']):
-        print('{} Pass'.format(w[0]['dt_txt']))
+        print('{} Pass'.format(w[i]['dt_txt']))
         count_pass_3 += 1
     else:
         print('{} Fail'.format(w[i]['dt_txt']))
