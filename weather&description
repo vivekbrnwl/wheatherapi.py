@@ -1,0 +1,29 @@
+import json, requests, sys
+
+#JSON data from OpenWeatherMap.org's API.
+url ='https://samples.openweathermap.org/data/2.5/forecast/hourly?q=London,us&appid=b6907d289e10d714a6e88b30761fae22'
+response = requests.get(url)
+x = response.json()
+y = x["list"]
+response.raise_for_status()
+# Load JSON data into a Python variable.
+weatherData = json.loads(response.text)
+# Print weather descriptions.
+w = weatherData['list']
+
+print("4. If the weather id is 500, the description should be light rain")
+print()
+count_fail_4 = 0
+count_pass_4 = 0
+for i in range(len(w)):
+    if w[i]['weather'][0]['id'] == 500 and w[i]['weather'][0]['description'] == 'light rain':
+        print('{} Pass'.format(w[i]['dt_txt']))
+        count_pass_4 += 1
+    else:
+        print('{} Fail'.format(w[i]['dt_txt']))
+        count_fail_4 += 1
+        
+print()
+print("Result:")
+print("Pass "+str(count_pass_4))
+print("Fail "+str(count_fail_4))
